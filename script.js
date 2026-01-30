@@ -113,7 +113,6 @@ function countPieces(row, col, dr, dc) {
 }
 
 // ADMIN LOGIN
-// ADMIN LOGIN
 adminBtn.addEventListener("click", () => {
   const pass = adminPass.value.trim();
 
@@ -124,7 +123,6 @@ adminBtn.addEventListener("click", () => {
     alert("Wrong password");
   }
 });
-
 
 // ADMIN ACTIONS
 forceRed.addEventListener("click", () => {
