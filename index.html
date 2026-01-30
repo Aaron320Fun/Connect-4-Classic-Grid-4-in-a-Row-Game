@@ -2,62 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Game Hub</title>
+  <title>Connect 4</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <h1>Game Hub</h1>
+  <h1>Connect 4</h1>
+  <div id="status">Current player: <span id="player">Red</span></div>
 
-  <!-- GAME SELECTOR -->
-  <div id="game-menu">
-    <button onclick="showGame('connect4')">Play Connect 4</button>
-    <button onclick="showGame('chess')">Play Chess</button>
+  <div id="board"></div>
+
+  <button id="reset">Reset Game</button>
+
+  <!-- ADMIN LOGIN -->
+  <div id="admin-login">
+    <input type="password" id="admin-pass" placeholder="Admin Password">
+    <button id="admin-btn">Login</button>
   </div>
 
-  <!-- CONNECT 4 GAME -->
-  <div id="connect4-container">
-    <h2>Connect 4</h2>
-    <div id="status">Current player: <span id="player">Red</span></div>
-    <div id="board"></div>
-    <button id="reset">Reset Game</button>
-
-    <!-- ADMIN LOGIN -->
-    <div id="admin-login">
-      <input type="password" id="admin-pass" placeholder="Admin Password">
-      <button id="admin-btn">Login</button>
-    </div>
-
-    <!-- ADMIN PANEL -->
-    <div id="admin-panel" class="hidden">
-      <h2>Admin Panel</h2>
-      <button id="force-red">Force Red Win</button>
-      <button id="force-yellow">Force Yellow Win</button>
-      <button id="godmode-btn">Toggle God Mode</button>
-    </div>
+  <!-- ADMIN PANEL -->
+  <div id="admin-panel" class="hidden">
+    <h2>Admin Panel</h2>
+    <button id="force-red">Force Red Win</button>
+    <button id="force-yellow">Force Yellow Win</button>
+    <button id="godmode-btn">Toggle God Mode</button>
   </div>
 
-  <!-- CHESS GAME -->
-  <div id="chess-container" class="hidden">
-    <h2>Chess</h2>
-    <div id="turn">Turn: White</div>
-    <div id="chessboard"></div>
-  </div>
-
-  <script src="connect4.js"></script>
-  <script src="chess.js"></script>
-  <script>
-    function showGame(game) {
-      document.getElementById("connect4-container").classList.add("hidden");
-      document.getElementById("chess-container").classList.add("hidden");
-
-      if (game === "connect4") {
-        document.getElementById("connect4-container").classList.remove("hidden");
-      } else {
-        document.getElementById("chess-container").classList.remove("hidden");
-      }
-    }
-  </script>
-
+  <script src="script.js"></script>
 </body>
 </html>
