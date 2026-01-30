@@ -113,12 +113,18 @@ function countPieces(row, col, dr, dc) {
 }
 
 // ADMIN LOGIN
+// ADMIN LOGIN
 adminBtn.addEventListener("click", () => {
-  if (adminPass.value === "admin123") {
+  const pass = adminPass.value.trim();
+
+  if (pass === "admin123") {
     adminPanel.classList.remove("hidden");
     adminLogin.classList.add("hidden");
+  } else {
+    alert("Wrong password");
   }
 });
+
 
 // ADMIN ACTIONS
 forceRed.addEventListener("click", () => {
