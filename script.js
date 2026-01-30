@@ -3,10 +3,20 @@ const COLS = 7;
 let board = [];
 let currentPlayer = "red";
 let gameOver = false;
+let godMode = false;
 
 const boardDiv = document.getElementById("board");
 const statusSpan = document.getElementById("player");
 const resetBtn = document.getElementById("reset");
+
+// ADMIN ELEMENTS
+const adminLogin = document.getElementById("admin-login");
+const adminPanel = document.getElementById("admin-panel");
+const adminBtn = document.getElementById("admin-btn");
+const adminPass = document.getElementById("admin-pass");
+const forceRed = document.getElementById("force-red");
+const forceYellow = document.getElementById("force-yellow");
+const godModeBtn = document.getElementById("godmode-btn");
 
 function createBoard() {
   boardDiv.innerHTML = "";
@@ -34,6 +44,13 @@ function handleMove(e) {
   if (gameOver) return;
 
   const col = parseInt(e.target.dataset.col);
+  const row = parseInt(e.target.dataset.row);
+
+  if (godMode) {
+    board[row][col] = currentPlayer;
+    updateCell(row, col);
+    return;
+  }
 
   for (let r = ROWS - 1; r >= 0; r--) {
     if (!board[r][col]) {
@@ -94,6 +111,30 @@ function countPieces(row, col, dr, dc) {
   }
   return count;
 }
+
+// ADMIN LOGIN
+adminBtn.addEventListener("click", () => {
+  if (adminPass.value === "admin123") {
+    adminPanel.classList.remove("hidden");
+    adminLogin.classList.add("hidden");
+  }
+});
+
+// ADMIN ACTIONS
+forceRed.addEventListener("click", () => {
+  document.getElementById("status").textContent = "RED wins!";
+  gameOver = true;
+});
+
+forceYellow.addEventListener("click", () => {
+  document.getElementById("status").textContent = "YELLOW wins!";
+  gameOver = true;
+});
+
+godModeBtn.addEventListener("click", () => {
+  godMode = !godMode;
+  godModeBtn.textContent = godMode ? "God Mode: ON" : "God Mode: OFF";
+});
 
 resetBtn.addEventListener("click", createBoard);
 
