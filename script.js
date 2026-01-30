@@ -2,11 +2,19 @@ const ROWS = 6;
 const COLS = 7;
 let board = [];
 let currentPlayer = "red";
+let gameOver = false;
 
 const boardDiv = document.getElementById("board");
+const statusSpan = document.getElementById("player");
+const resetBtn = document.getElementById("reset");
 
-// Create board array + HTML cells
 function createBoard() {
+  boardDiv.innerHTML = "";
+  board = [];
+  gameOver = false;
+  currentPlayer = "red";
+  statusSpan.textContent = "Red";
+
   for (let r = 0; r < ROWS; r++) {
     board[r] = [];
     for (let c = 0; c < COLS; c++) {
@@ -23,17 +31,25 @@ function createBoard() {
 }
 
 function handleMove(e) {
-  const col = e.target.dataset.col;
+  if (gameOver) return;
 
-  // Find lowest empty row in this column
+  const col = parseInt(e.target.dataset.col);
+
   for (let r = ROWS - 1; r >= 0; r--) {
     if (!board[r][col]) {
       board[r][col] = currentPlayer;
       updateCell(r, col);
+
       if (checkWin(r, col)) {
-        alert(`${currentPlayer.toUpperCase()} wins!`);
+        document.getElementById("status").textContent =
+          currentPlayer.toUpperCase() + " wins!";
+        gameOver = true;
+        return;
       }
+
       currentPlayer = currentPlayer === "red" ? "yellow" : "red";
+      statusSpan.textContent =
+        currentPlayer.charAt(0).toUpperCase() + currentPlayer.slice(1);
       return;
     }
   }
@@ -46,10 +62,10 @@ function updateCell(r, c) {
 
 function checkWin(row, col) {
   return (
-    checkDirection(row, col, 1, 0) || // horizontal
-    checkDirection(row, col, 0, 1) || // vertical
-    checkDirection(row, col, 1, 1) || // diagonal down-right
-    checkDirection(row, col, 1, -1)   // diagonal down-left
+    checkDirection(row, col, 1, 0) ||
+    checkDirection(row, col, 0, 1) ||
+    checkDirection(row, col, 1, 1) ||
+    checkDirection(row, col, 1, -1)
   );
 }
 
@@ -78,5 +94,7 @@ function countPieces(row, col, dr, dc) {
   }
   return count;
 }
+
+resetBtn.addEventListener("click", createBoard);
 
 createBoard();
